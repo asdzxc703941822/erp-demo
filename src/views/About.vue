@@ -1,21 +1,64 @@
 <template>
-  <div class="about">
-    <div id="cc" class="easyui-layout" style="width:600px;height:400px;">
-      <div data-options="region:'north',title:'North Title',split:true" style="height:100px;"></div>
-      <div data-options="region:'south',title:'South Title',split:true" style="height:100px;"></div>
-      <div
-        data-options="region:'east',iconCls:'icon-reload',title:'East',split:true"
-        style="width:100px;"
-      ></div>
-      <div data-options="region:'west',title:'West',split:true" style="width:100px;"></div>
-      <div data-options="region:'center',title:'center title'" style="padding:5px;background:#eee;"></div>
-    </div>
-  </div>
+  <a-layout>
+    <a-layout-header>Header</a-layout-header>
+    <a-layout>
+      <a-layout-sider>
+        <a-menu
+          :defaultSelectedKeys="['1']"
+          :defaultOpenKeys="['sub1']"
+          mode="inline"
+          theme="dark"
+          :inlineCollapsed="collapsed"
+        >
+          <a-menu-item key="1">
+            <a-icon type="pie-chart"/>
+            <span>Option 1</span>
+          </a-menu-item>
+          <a-menu-item key="2">
+            <a-icon type="desktop"/>
+            <span>Option 2</span>
+          </a-menu-item>
+          <a-menu-item key="3">
+            <a-icon type="inbox"/>
+            <span>Option 3</span>
+          </a-menu-item>
+          <a-sub-menu key="sub1">
+            <span slot="title">
+              <a-icon type="mail"/>
+              <span>Navigation One</span>
+            </span>
+            <a-menu-item key="5">Option 5</a-menu-item>
+            <a-menu-item key="6">Option 6</a-menu-item>
+            <a-menu-item key="7">Option 7</a-menu-item>
+            <a-menu-item key="8">Option 8</a-menu-item>
+          </a-sub-menu>
+          <a-sub-menu key="sub2">
+            <span slot="title">
+              <a-icon type="appstore"/>
+              <span>Navigation Two</span>
+            </span>
+            <a-menu-item key="9">Option 9</a-menu-item>
+            <a-menu-item key="10">Option 10</a-menu-item>
+            <a-sub-menu key="sub3" title="Submenu">
+              <a-menu-item key="11">Option 11</a-menu-item>
+              <a-menu-item key="12">Option 12</a-menu-item>
+            </a-sub-menu>
+          </a-sub-menu>
+        </a-menu>
+      </a-layout-sider>
+      <a-layout-content>Content</a-layout-content>
+    </a-layout>
+    <a-layout-footer id="footer">Footer</a-layout-footer>
+  </a-layout>
 </template>
 <script>
 export default {
-  mounted() {
-    
-  }
+  mounted() {}
 };
 </script>
+<style>
+.ant-layout-footer{
+  background-color:#001529;
+}
+</style>
+
