@@ -1,49 +1,49 @@
 <template>
-  <a-menu :defaultSelectedKeys="['1']" :defaultOpenKeys="['sub1']" mode="inline" theme="dark">
-    <a-menu-item key="1" @click="con">
-      <!-- <a-icon type="pie-chart"/> -->
-      Option 1
-    </a-menu-item>
-    <a-menu-item key="2">
-      <a-icon type="desktop"/>
-      <span>Option 2</span>
-    </a-menu-item>
-    <a-menu-item key="3">
-      <a-icon type="inbox"/>
-      <span>Option 3</span>
-    </a-menu-item>
-    <a-sub-menu key="sub1">
-      <span slot="title">
-        <a-icon type="mail"/>
-        <span>Navigation One</span>
-      </span>
-      <a-menu-item key="5">Option 5</a-menu-item>
-      <a-menu-item key="6">Option 6</a-menu-item>
-      <a-menu-item key="7">Option 7</a-menu-item>
-      <a-menu-item key="8">Option 8</a-menu-item>
-    </a-sub-menu>
-    <a-sub-menu key="sub2">
-      <span slot="title">
-        <a-icon type="appstore"/>
-        <span>Navigation Two</span>
-      </span>
-      <a-menu-item key="9">Option 9</a-menu-item>
-      <a-menu-item key="10">Option 10</a-menu-item>
-      <a-sub-menu key="sub3" title="Submenu">
-        <a-menu-item key="11">Option 11</a-menu-item>
-        <a-menu-item key="12">Option 12</a-menu-item>
-      </a-sub-menu>
-    </a-sub-menu>
+  <a-menu :defaultOpenKeys="['sub1']" mode="inline" theme="dark" @click="con">
+    <template v-for="item in list">
+      <a-menu-item v-if="!item.children" :key="item.key">
+        <a-icon type="pie-chart"/>
+        <span>{{item.title}}</span>
+        <router-link :to="{name:item.url}"></router-link>
+      </a-menu-item>
+      <sub-menu v-else :menu-info="item" :key="item.key"/>
+    </template>
   </a-menu>
 </template>
 <script>
+import SubMenu from "./menu/subMenu";
 export default {
+  data() {
+    return {
+      list: [
+        {
+          key: "1",
+          title: "Option 1",
+          url: "test"
+        },
+        {
+          key: "2",
+          title: "Navigation 2",
+          children: [
+            {
+              key: "2.1",
+              title: "Navigation 3",
+              children: [{ key: "2.1.1", title: "Option 2.1.1", url: "test2" }]
+            }
+          ]
+        }
+      ]
+    };
+  },
+  components: {
+    "sub-menu": SubMenu
+  },
   methods: {
-    con(options) {
-      console.log(options.item.$el.textContent);
+    con(item, key, keypath) {
+      this.$bus.$emit("change-tab", item);
+      // console.log(options.item.$el.textContent);
       // console.log(a,b,c)
     }
   }
 };
 </script>
-

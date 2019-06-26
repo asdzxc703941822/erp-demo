@@ -1,34 +1,28 @@
 <template>
   <a-layout>
-    <a-layout-header>Header</a-layout-header>
-    <a-layout>
-      <a-layout-sider>
-        <MENU></MENU>
-      </a-layout-sider>
-      <a-layout-content>
-        <Content/>
-      </a-layout-content>
+    <a-layout-sider :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }">
+      <MENU/>
+    </a-layout-sider>
+    <a-layout :style="{marginLeft:'200px'}">
+      <Content/>
     </a-layout>
-    <a-layout-footer id="footer">Footer</a-layout-footer>
   </a-layout>
 </template>
 <script>
-import MENU from '../components/menu'
-import Content from '../components/content'
+import MENU from "../components/menu";
+import Content from "../components/content";
 export default {
-  mounted() {},
-  methods:{
-    
+  data() {
+    return {};
   },
-  components:{
+  mounted() {},
+  methods: {},
+  components: {
     MENU,
     Content
   }
 };
 </script>
 <style>
-.ant-layout-footer{
-  background-color:#001529;
-}
 </style>
 
