@@ -1,10 +1,10 @@
 <template>
   <a-layout>
     <a-layout-sider :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }">
-      <MENU/>
+      <MENU />
     </a-layout-sider>
     <a-layout :style="{marginLeft:'200px'}">
-      <Content/>
+      <Content />
     </a-layout>
   </a-layout>
 </template>
@@ -15,6 +15,7 @@ export default {
   data() {
     return {};
   },
+  created() {},
   mounted() {},
   methods: {},
   components: {

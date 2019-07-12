@@ -26,6 +26,7 @@ service.interceptors.response.use(
   response => {
     let { data: res } = response;
     let { code, data, msg } = res;
+    debugger;
     if (code !== 0) {
       message.warning(msg);
       return Promise.reject(response);
@@ -82,6 +83,4 @@ service.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-export default function() {
-  return service;
-}
+export default service;

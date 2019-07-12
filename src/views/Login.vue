@@ -8,12 +8,12 @@
     <a-form-item>
       <a-input
         v-decorator="[
-          'userName',
+          'username',
           { rules: [{ required: true, message: 'Please input your username!' }] }
         ]"
         placeholder="Username"
       >
-        <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)"/>
+        <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
       </a-input>
     </a-form-item>
     <a-form-item>
@@ -25,11 +25,11 @@
         type="password"
         placeholder="Password"
       >
-        <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)"/>
+        <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
       </a-input>
     </a-form-item>
     <a-form-item>
-      <a-checkbox
+      <!-- <a-checkbox
         v-decorator="[
           'remember',
           {
@@ -37,7 +37,10 @@
             initialValue: true,
           }
         ]"
-      >Remember me</a-checkbox>
+      >Remember me</a-checkbox>-->
+      <a-input type="hidden" v-decorator="['grant_type',{
+        initialValue:'password'
+      }]"></a-input>
       <a class="login-form-forgot" href>Forgot password</a>
       <a-button type="primary" html-type="submit" class="login-form-button">Log in</a-button>Or
       <a href>register now!</a>
@@ -46,6 +49,7 @@
 </template>
 
 <script>
+import { getToken } from "../api/login";
 export default {
   beforeCreate() {
     this.form = this.$form.createForm(this);
@@ -55,21 +59,33 @@ export default {
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log("Received values of form: ", values);
+          getToken(values)
+            .then(res => {
+              const { access_token, token_type, expires_in } = res.data;
+              localStorage.setItem(
+                "access_token",
+                `${token_type} ${access_token}`
+              );
+              this.$router.push("/main");
+            })
+            .catch(err => {
+              console.log(err);
+            });
+          // console.log("Received values of form: ", values);
         }
       });
     }
   }
 };
 </script>
-<style>
-#components-form-demo-normal-login{
+<style scoped>
+#components-form-demo-normal-login {
   position: relative;
-  top:50%;
+  top: 50%;
   left: 50%;
-  margin-left:-250px;
-  margin-top:120px;
-  width:500px;
+  margin-left: -250px;
+  margin-top: 120px;
+  width: 500px;
 }
 #components-form-demo-normal-login .login-form {
   max-width: 300px;
